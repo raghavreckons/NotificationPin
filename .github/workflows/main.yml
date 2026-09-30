@@ -20,19 +20,20 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v3
         with:
           gradle-version: '8.5'
+          cache-disabled: true
+
+      - name: Accept Android Licenses
+        run: yes | sdkmanager --licenses || true
 
       - name: Build Debug APK
-        run: |
-          if [ -f "./gradlew" ]; then
-            chmod +x ./gradlew
-            ./gradlew assembleDebug --no-daemon
-          else
-            gradle assembleDebug --no-daemon
-          fi
+        run: gradle assembleDebug --stacktrace --no-daemon
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
@@ -40,4 +41,3 @@ jobs:
           name: NotificationPin-debug-apk
           path: app/build/outputs/apk/debug/*.apk
           retention-days: 14
-          
