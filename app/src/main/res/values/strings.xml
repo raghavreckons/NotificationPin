@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Notification Pin</string>
+    <string name="widget_name">Pinned Notifications</string>
+    <string name="widget_description">Displays your pinned status bar notifications on your home screen.</string>
+</resources>
